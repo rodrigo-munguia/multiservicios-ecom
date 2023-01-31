@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+    <style>
+    #container{
+        box-shadow: 0 15px 30px 1px grey;
+        background: rgba(255, 255, 255, 0.90);
+        text-align: center;
+        border-radius: 5px;
+        overflow: hidden;
+        margin: 5em auto;
+        height: 300px;    
+        max-width: 700px;
+        margin: auto;
+    }
+    </style>
+
+{% endblock extra_head %}
+
+{% block content %}
+
+
+<div class="col-lg-4 col-md-6 mb-4" id = "container">
+    
+    <p> </p>
+    <p> </p>
+
+    <h2>Thanks <b> {{ order_number }} </b> for your order: <b> {{ name }} </b> !!</h2>
+
+    <h3>You will receive an email with instructions for pick up your order.</h3>
+    
+    <h3>Remember you only have 24 hrs for picking up your product.</h3>
+    
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+    <style>
+    #container{
+        box-shadow: 0 15px 30px 1px grey;
+        background: rgba(255, 255, 255, 0.90);
+        text-align: center;
+        border-radius: 5px;
+        overflow: hidden;
+        margin: 5em auto;
+        height: 300px;    
+        max-width: 700px;
+        margin: auto;
+    }
+    </style>
+
+{% endblock extra_head %}
+
+{% block content %}
+
+
+<div class="col-lg-4 col-md-6 mb-4" id = "container">
+    
+    <p> </p>
+    <p> </p>
+
+    <h2>Thanks <b> {{ order.user }} </b> for your order: <b> {{order.order_number }} </b> !!</h2>             
+
+    <h3>After your payment is confirmed, you will receive a email with your order number.</h3>
+
+</div>
+
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+    
+  <body>
+        <br>
+
+        <h2>Dear {{ order.ShippingAddress.name }}</h2>
+        <h3>Unfortunately your Order ID: {{ order.order_number}} has been canceled</h3>
+        
+        {% if order.delivery_option == 'P'%}
+
+            <h4>The period of 24 hours for picking up your order has expired.</h4>
+            <h4>If you are still interested in our products, you can place a new order.</h4>           
+        
+        {% endif %}
+
+        {% if order.delivery_option == 'S'%}
+        <h3>Shipping Details:</h3>
+            {{ order.name }} </br>
+            {{ order.ShippingAddress.street_address }} <br/>
+            {{ order.ShippingAddress.apartment_address }} <br/>
+            {{ order.ShippingAddress.municipality }} <br/>
+            {{ order.ShippingAddress.state }} <br/>
+            {{ order.ShippingAddress.zip }}        
+        {% endif %}
+
+        <h3>
+            Contact Details:
+        </h3>
+        Email: {{ order.ShippingAddress.email }} <br/>
+        Phone: {{ order.ShippingAddress.mobile_phone }}
+
+        <h2>Order Details:</h2>
+         
+
+        <div class="col-md-4 mb-4" >
+            {% include "order_snippet.html" %}
+        </div>
+                
+    </body>
+</html>

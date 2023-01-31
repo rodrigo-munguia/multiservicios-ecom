@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+    
+  <body>
+        <br>
+
+        <h2>Thank you for your order {{ order.ShippingAddress.name }}</h2>
+        <h3>Your Order ID: {{ order.order_number}}</h3>
+
+        {% if order.delivery_option == 'S'%}
+        <h3>Shipping Details:</h3>
+            {{ order.name }} </br>
+            {{ order.ShippingAddress.street_address }} <br/>
+            {{ order.ShippingAddress.apartment_address }} <br/>
+            {{ order.ShippingAddress.municipality }} <br/>
+            {{ order.ShippingAddress.state }} <br/>
+            {{ order.ShippingAddress.zip }}        
+        {% endif %}
+        <h3>
+            Contact Details:
+        </h3>
+        Email: {{ order.ShippingAddress.email }} <br/>
+        Phone: {{ order.ShippingAddress.mobile_phone }}
+
+        <h2>Order Details:</h2>
+         
+
+        <div class="col-md-4 mb-4" >
+            {% include "order_snippet.html" %}
+        </div>
+        
+        {%comment%}
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in order.order_items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.total_price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      {%endcomment%}
+    </body>
+</html>
