@@ -234,7 +234,7 @@ if DEBUG == True:
     # -------------------------------------------------------------------------------
 else:
     # production environment
-    CSRF_TRUSTED_ORIGINS = ['https://multiservicios-ecom-production.up.railway.app/']
+    CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app/']
     
     STRIPE_SECRET_KEY   = env('STRIPE_SECRET_KEY', default='')
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
