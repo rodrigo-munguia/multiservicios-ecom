@@ -1,6 +1,5 @@
 .vscode/*
 my_env/*
-images/*
 cert.pem
 key.pem
 personal_config.json
