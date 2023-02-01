@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import json
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,8 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--ec-_fae+z^+bier#un8-k3zd^3fa(r1d%+&&kv++)bekb#jja'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 #ALLOWED_HOSTS = []
 # for railway --------------------------------------------
@@ -201,39 +201,60 @@ SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-# load personal config data
-f = open('personal_config.json')
-config = json.load(f)
-email = config['email'][0]
-stripe = config['stripe'][0]
-
 
 ACCOUNT_EMAIL_VERIFICATION = 'none' 
 
-# configure google auth guide: https://www.youtube.com/watch?v=yO6PP0vEOMc
-# configure facebook auth: https://www.codesnail.com/facebook-authentication-in-django-using-django-allauth/
+
+env = environ.Env()
+
+# SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG now controlled by an environment variable which allows using the same file in dev and prod
+DEBUG = env.bool('DEBUG', default=True)
+
+if DEBUG == True:
+    # load personal config data
+    f = open('personal_config.json')
+    config = json.load(f)
+    email = config['email'][0]
+    stripe = config['stripe'][0]
+                    
+    STRIPE_SECRET_KEY = stripe["STRIPE_SECRET_KEY"]
+    STRIPE_PUBLIC_KEY = stripe["STRIPE_PUBLIC_KEY"]
+    STRIPE_WEBHOOK_KEY = stripe["STRIPE_WEBHOOK_KEY"]                 
+
+    # -----email configuration ------------------------------------------------------
+    # for configuring gmail: https://www.youtube.com/watch?v=iGPPhzhXBFg
+    EMAIL_BACKEND = email["EMAIL_BACKEND"]
+    EMAIL_HOST = email["EMAIL_HOST"]
+    EMAIL_HOST_USER = email["EMAIL_HOST_USER"]
+    EMAIL_HOST_PASSWORD = email["EMAIL_HOST_PASSWORD"] # app password (not regular password)
+    EMAIL_PORT = email["EMAIL_PORT"]
+    EMAIL_USE_TLS = email["EMAIL_USE_TLS"]
+    #EMAIL_USE_SSL = email["EMAIL_USE_SSL"]
+    # -------------------------------------------------------------------------------
+else:
+    STRIPE_SECRET_KEY   = env('STRIPE_SECRET_KEY', default='')
+    STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
+    STRIPE_WEBHOOK_KEY = env('STRIPE_WEBHOOK_KEY', default='')
+    EMAIL_BACKEND = env('EMAIL_BACKEND ', default='')
+    EMAIL_HOST = env('EMAIL_HOST', default='')
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
+    EMAIL_PORT = env('EMAIL_PORT', default='')
+    EMAIL_USE_TLS = env('EMAIL_USE_TLS', default='') 
+    
+
+
 
 # https://stripe.com/docs/webhooks/quickstart
-# for testing stripe webhook: stripe listen --forward-to 127.0.0.1:9000/webhooks/stripe/                    
-STRIPE_SECRET_KEY = stripe["STRIPE_SECRET_KEY"]
-STRIPE_PUBLIC_KEY = stripe["STRIPE_PUBLIC_KEY"]
-STRIPE_WEBHOOK_KEY = stripe["STRIPE_WEBHOOK_KEY"]                 
-
-# -----email configuration ------------------------------------------------------
-# for configuring gmail: https://www.youtube.com/watch?v=iGPPhzhXBFg
-EMAIL_BACKEND = email["EMAIL_BACKEND"]
-EMAIL_HOST = email["EMAIL_HOST"]
-EMAIL_HOST_USER = email["EMAIL_HOST_USER"]
-EMAIL_HOST_PASSWORD = email["EMAIL_HOST_PASSWORD"] # app password (not regular password)
-EMAIL_PORT = email["EMAIL_PORT"]
-EMAIL_USE_TLS = email["EMAIL_USE_TLS"]
-#EMAIL_USE_SSL = email["EMAIL_USE_SSL"]
-# -------------------------------------------------------------------------------
+# for testing stripe webhook: stripe listen --forward-to 127.0.0.1:9000/webhooks/stripe/   
 
 # for testing https conections: https://github.com/teddziuba/django-sslserver
 # python manage.py runsslserver
 # in browser : https://localhost:8000  
 
+# configure google auth guide: https://www.youtube.com/watch?v=yO6PP0vEOMc
+# configure facebook auth: https://www.codesnail.com/facebook-authentication-in-django-using-django-allauth/
 
 
 
