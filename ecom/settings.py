@@ -416,14 +416,14 @@ else:
     STRIPE_SECRET_KEY   = env('STRIPE_SECRET_KEY', default='')
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
     STRIPE_WEBHOOK_KEY = env('STRIPE_WEBHOOK_KEY', default='')
-    """
+    
     EMAIL_BACKEND = env('EMAIL_BACKEND ', default='')
     EMAIL_HOST = env('EMAIL_HOST', default='')
     EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
     EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
     EMAIL_PORT = env('EMAIL_PORT', default='')
     EMAIL_USE_TLS = env('EMAIL_USE_TLS', default='') 
-    """
+    
 
 
 
