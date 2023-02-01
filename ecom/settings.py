@@ -22,188 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--ec-_fae+z^+bier#un8-k3zd^3fa(r1d%+&&kv++)bekb#jja'
-
-
-
-#ALLOWED_HOSTS = []
-# for railway --------------------------------------------
-ALLOWED_HOSTS = ['*']  # for railway
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
-#------------------------------------------------------
-
-# Application definition
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',    
-    'django.contrib.staticfiles',
-    'django.contrib.sites',    
-    'crispy_forms',
-    "django_extensions",
-    "sslserver",
-    # allauth configuration----------------------------------
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-     # ... include the providers you want to enable:     
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',   
-     #--------------------------------------------------------
-    'django_apscheduler',      
-    'core'
-]
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ROOT_URLCONF = 'ecom.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates")],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-WSGI_APPLICATION = 'ecom.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'America/Mexico_City'
-
-USE_I18N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-STATIC_URL = 'static/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Auth
-AUTHENTICATION_BACKENDS = [
-    
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-    
-]
-
-SOCIALACCOUNT_PROVIDERS = \
-    {'facebook':
-       {'METHOD': 'oauth2',
-        'SCOPE': ['email','public_profile'],
-        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
-        'FIELDS': [
-            'id',
-            'email',
-            'name',
-            'first_name',
-            'last_name',
-            'picture'],
-        'EXCHANGE_TOKEN': True,
-        'LOCALE_FUNC': lambda request: 'kr_KR',
-        'VERIFIED_EMAIL': False,
-        'VERSION': 'v2.4'},
-       
-       "google": {
-           "SCOPE":[
-               "profile",
-               "email"
-           ],
-           "AUTH_PARAMS":{"access_type":"online"}
-       }
-    }
-    
-# set the time (minutes) that an order can be active in the kart
-MINUTES_IN_KART = 1
-# set the time (hours) for sending a remainder to clients with not-completed pick-up orders
-HOURS_TO_REMAINDER_FOR_PICKUP_ORDERS = 12
-# set the time (hours) for cancel/delete pick-up orders that have not been complete
-HOURS_TO_CANCEL_PICKUP_ORDERS = 24    
-    
-THUMB_SIZE = (100,100) # thumbail size in pixels
-
-SITE_ID = 2
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
-
-ACCOUNT_EMAIL_VERIFICATION = 'none' 
-
 
 env = environ.Env()
 
@@ -211,7 +29,179 @@ env = environ.Env()
 # DEBUG now controlled by an environment variable which allows using the same file in dev and prod
 DEBUG = env.bool('DEBUG', default=True)
 
-if DEBUG == True:
+# For dev environment
+if DEBUG == True: 
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = 'django-insecure--ec-_fae+z^+bier#un8-k3zd^3fa(r1d%+&&kv++)bekb#jja'
+
+    #ALLOWED_HOSTS = []
+    # for railway --------------------------------------------
+    ALLOWED_HOSTS = ['*']  # for railway
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+    #------------------------------------------------------
+
+    # Application definition
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',    
+        'django.contrib.staticfiles',
+        'django.contrib.sites',    
+        'crispy_forms',
+        "django_extensions",
+        "sslserver",
+        # allauth configuration----------------------------------
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
+        # ... include the providers you want to enable:     
+        'allauth.socialaccount.providers.facebook',
+        'allauth.socialaccount.providers.google',   
+        #--------------------------------------------------------
+        'django_apscheduler',      
+        'core'
+    ]
+
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
+
+    ROOT_URLCONF = 'ecom.urls'
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(BASE_DIR,"templates")],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+    ]
+
+    WSGI_APPLICATION = 'ecom.wsgi.application'
+
+    # Database
+    # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+    # Password validation
+    # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ]
+    
+    # Internationalization
+    # https://docs.djangoproject.com/en/4.1/topics/i18n/
+
+    LANGUAGE_CODE = 'en-us'
+    TIME_ZONE = 'America/Mexico_City'
+    USE_I18N = True
+    USE_TZ = True
+
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+    STATIC_URL = 'static/'
+
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
+
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
+
+    CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+    # Default primary key field type
+    # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+    # Auth
+    AUTHENTICATION_BACKENDS = [
+        
+        # Needed to login by username in Django admin, regardless of `allauth`
+        'django.contrib.auth.backends.ModelBackend',
+
+        # `allauth` specific authentication methods, such as login by e-mail
+        'allauth.account.auth_backends.AuthenticationBackend',
+        
+    ]
+
+    SOCIALACCOUNT_PROVIDERS = \
+        {'facebook':
+        {'METHOD': 'oauth2',
+            'SCOPE': ['email','public_profile'],
+            'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+            'FIELDS': [
+                'id',
+                'email',
+                'name',
+                'first_name',
+                'last_name',
+                'picture'],
+            'EXCHANGE_TOKEN': True,
+            'LOCALE_FUNC': lambda request: 'kr_KR',
+            'VERIFIED_EMAIL': False,
+            'VERSION': 'v2.4'},
+        
+        "google": {
+            "SCOPE":[
+                "profile",
+                "email"
+            ],
+            "AUTH_PARAMS":{"access_type":"online"}
+        }
+        }
+        
+    # set the time (minutes) that an order can be active in the kart
+    MINUTES_IN_KART = 1
+    # set the time (hours) for sending a remainder to clients with not-completed pick-up orders
+    HOURS_TO_REMAINDER_FOR_PICKUP_ORDERS = 12
+    # set the time (hours) for cancel/delete pick-up orders that have not been complete
+    HOURS_TO_CANCEL_PICKUP_ORDERS = 24    
+        
+    THUMB_SIZE = (100,100) # thumbail size in pixels
+
+    SITE_ID = 2
+    LOGIN_REDIRECT_URL = '/'
+    LOGOUT_REDIRECT_URL = '/'
+
+    ACCOUNT_EMAIL_VERIFICATION = 'none' 
+    
     # load personal config data
     f = open('personal_config.json')
     config = json.load(f)
@@ -234,6 +224,182 @@ if DEBUG == True:
     # -------------------------------------------------------------------------------
 else:
     # production environment
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = 'django-insecure--ec-_fae+z^+bier#un8-k3zd^3fa(r1d%+&&kv++)bekb#jja'
+
+    #ALLOWED_HOSTS = []
+    # for railway --------------------------------------------
+    ALLOWED_HOSTS = ['*']  # for railway
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+    #------------------------------------------------------
+
+    # Application definition
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',    
+        'django.contrib.staticfiles',
+        'django.contrib.sites',    
+        'crispy_forms',
+        "django_extensions",
+        "sslserver",
+        # allauth configuration----------------------------------
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
+        # ... include the providers you want to enable:     
+        'allauth.socialaccount.providers.facebook',
+        'allauth.socialaccount.providers.google',   
+        #--------------------------------------------------------
+        'django_apscheduler',      
+        'core',        
+        'whitenoise.runserver_nostatic'
+    ]
+
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        "whitenoise.middleware.WhiteNoiseMiddleware",
+    ]
+
+    ROOT_URLCONF = 'ecom.urls'
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(BASE_DIR,"templates")],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+    ]
+
+    WSGI_APPLICATION = 'ecom.wsgi.application'
+
+    # Database
+    # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+    # Password validation
+    # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
+
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ]
+    
+    # Internationalization
+    # https://docs.djangoproject.com/en/4.1/topics/i18n/
+
+    LANGUAGE_CODE = 'en-us'
+    TIME_ZONE = 'America/Mexico_City'
+    USE_I18N = True
+    USE_TZ = True
+
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+    STATIC_URL = 'static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
+
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
+
+    CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+    # Default primary key field type
+    # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+    # Auth
+    AUTHENTICATION_BACKENDS = [
+        
+        # Needed to login by username in Django admin, regardless of `allauth`
+        'django.contrib.auth.backends.ModelBackend',
+
+        # `allauth` specific authentication methods, such as login by e-mail
+        'allauth.account.auth_backends.AuthenticationBackend',
+        
+    ]
+
+    SOCIALACCOUNT_PROVIDERS = \
+        {'facebook':
+        {'METHOD': 'oauth2',
+            'SCOPE': ['email','public_profile'],
+            'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+            'FIELDS': [
+                'id',
+                'email',
+                'name',
+                'first_name',
+                'last_name',
+                'picture'],
+            'EXCHANGE_TOKEN': True,
+            'LOCALE_FUNC': lambda request: 'kr_KR',
+            'VERIFIED_EMAIL': False,
+            'VERSION': 'v2.4'},
+        
+        "google": {
+            "SCOPE":[
+                "profile",
+                "email"
+            ],
+            "AUTH_PARAMS":{"access_type":"online"}
+        }
+        }
+        
+    # set the time (minutes) that an order can be active in the kart
+    MINUTES_IN_KART = 1
+    # set the time (hours) for sending a remainder to clients with not-completed pick-up orders
+    HOURS_TO_REMAINDER_FOR_PICKUP_ORDERS = 12
+    # set the time (hours) for cancel/delete pick-up orders that have not been complete
+    HOURS_TO_CANCEL_PICKUP_ORDERS = 24    
+        
+    THUMB_SIZE = (100,100) # thumbail size in pixels
+
+    SITE_ID = 2
+    LOGIN_REDIRECT_URL = '/'
+    LOGOUT_REDIRECT_URL = '/'
+
+    ACCOUNT_EMAIL_VERIFICATION = 'none' 
+    
+    # production environment
     CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app/']
     
     STRIPE_SECRET_KEY   = env('STRIPE_SECRET_KEY', default='')
@@ -246,6 +412,13 @@ else:
     EMAIL_PORT = env('EMAIL_PORT', default='')
     EMAIL_USE_TLS = env('EMAIL_USE_TLS', default='') 
     
+
+
+
+
+
+
+
 
 
 
