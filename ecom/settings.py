@@ -36,9 +36,9 @@ if DEBUG == True:
 
     #ALLOWED_HOSTS = []
     # for railway --------------------------------------------
-    ALLOWED_HOSTS = ['*']  # for railway
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-    STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+    #ALLOWED_HOSTS = ['*']  # for railway
+    #STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    #STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
     #------------------------------------------------------
 
     # Application definition
@@ -224,6 +224,7 @@ if DEBUG == True:
     # -------------------------------------------------------------------------------
 else:
     # production environment
+    
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure--ec-_fae+z^+bier#un8-k3zd^3fa(r1d%+&&kv++)bekb#jja'
 
@@ -251,8 +252,7 @@ else:
         'allauth.socialaccount.providers.google',   
         #--------------------------------------------------------
         'django_apscheduler',      
-        'core',        
-        'whitenoise.runserver_nostatic'
+        'core'       
     ]
 
     MIDDLEWARE = [
@@ -331,12 +331,14 @@ else:
     #STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
     #------------------------------------------------------
     STATIC_URL = 'static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    STATICFILES_STORAGE="whitenoise.storage.CompressedManifestStaticFilesStorage"
-
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static')
     ]
+    
+    #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+    
 
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
