@@ -139,7 +139,7 @@ if DEBUG == True:
      # for railway --------------------------------------------
     ALLOWED_HOSTS = ['*']  # for railway
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-    STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+    #STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     STATIC_URL = 'static/'
 
@@ -246,8 +246,7 @@ else:
         'django.contrib.sessions',
         'django.contrib.messages',    
         'django.contrib.staticfiles',
-        'django.contrib.sites',
-        'whitenoise.runserver_nostatic',      
+        'django.contrib.sites',            
         'crispy_forms',
         "django_extensions",
         "sslserver",
@@ -264,8 +263,7 @@ else:
     ]
 
     MIDDLEWARE = [
-        'django.middleware.security.SecurityMiddleware',
-        'whitenoise.middleware.WhiteNoiseMiddleware',
+        'django.middleware.security.SecurityMiddleware',        
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
@@ -338,7 +336,7 @@ else:
      # for railway --------------------------------------------
     ALLOWED_HOSTS = ['*']  # for railway
     STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-    STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
+    #STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     #------------------------------------------------------
     STATIC_URL = 'static/'
@@ -346,7 +344,7 @@ else:
    
     
     #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    #STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
     
 
