@@ -233,6 +233,9 @@ if DEBUG == True:
     #EMAIL_USE_SSL = email["EMAIL_USE_SSL"]
     # -------------------------------------------------------------------------------
 else:
+    # production environment
+    CSRF_TRUSTED_ORIGINS = ['https://multiservicios-ecom-production.up.railway.app/']
+    
     STRIPE_SECRET_KEY   = env('STRIPE_SECRET_KEY', default='')
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
     STRIPE_WEBHOOK_KEY = env('STRIPE_WEBHOOK_KEY', default='')
