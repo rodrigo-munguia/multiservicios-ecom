@@ -418,7 +418,7 @@ else:
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
     STRIPE_WEBHOOK_KEY = env('STRIPE_WEBHOOK_KEY', default='')
     
-    EMAIL_BACKEND = env('EMAIL_BACKEND ', default='')
+    EMAIL_BACKEND = env('EMAIL_BACKEND', default='')
     EMAIL_HOST = env('EMAIL_HOST', default='')
     EMAIL_HOST_USER = env('EMAIL_HOST_USER', default='')
     EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', default='')
