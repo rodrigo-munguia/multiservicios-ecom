@@ -231,7 +231,7 @@ if DEBUG == True:
     # -------------------------------------------------------------------------------
 else:
     # production environment
-    
+    DEBUG = True
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure--ec-_fae+z^+bier#un8-k3zd^3fa(r1d%+&&kv++)bekb#jja'
 
@@ -269,8 +269,7 @@ else:
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        
+        'django.middleware.clickjacking.XFrameOptionsMiddleware'        
     ]
     #"whitenoise.middleware.WhiteNoiseMiddleware",
 
