@@ -3,6 +3,7 @@ my_env/*
 cert.pem
 key.pem
 personal_config.json
+db.sqlite3
 
 
 

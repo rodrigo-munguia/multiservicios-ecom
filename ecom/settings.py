@@ -99,13 +99,16 @@ if DEBUG == True:
 
     # Database
     # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
+    
+    """
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    """
+   
 
     # Password validation
     # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -214,6 +217,19 @@ if DEBUG == True:
     config = json.load(f)
     email = config['email'][0]
     stripe = config['stripe'][0]
+    
+    db = config['db'][0]
+    
+    DATABASES = {     
+        'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': db['NAME'],
+        'USER': db['USER'],
+        'PASSWORD': db['PASSWORD'],
+        'HOST': db['HOST'],
+        'PORT': db['PORT']  
+        } 
+    } 
                     
     STRIPE_SECRET_KEY = stripe["STRIPE_SECRET_KEY"]
     STRIPE_PUBLIC_KEY = stripe["STRIPE_PUBLIC_KEY"]
@@ -413,6 +429,18 @@ else:
     
     # production environment
     CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app/']
+    
+    
+    DATABASES = {     
+        'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '<PGDATABASE>',
+        'USER': '<PGUSER>',
+        'PASSWORD': '<PGPASSWORD>',
+        'HOST': '<PGHOST>',
+        'PORT': '<PGPORT>'  
+        } 
+    } 
     
     STRIPE_SECRET_KEY   = env('STRIPE_SECRET_KEY', default='')
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')

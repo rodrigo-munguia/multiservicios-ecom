@@ -10,7 +10,7 @@ class CoreConfig(AppConfig):
     def ready(self):
         from . import scheduler
         if os.environ.get('RUN_MAIN'):
-            scheduler.start()
+            #scheduler.start()
             pass
     
     
