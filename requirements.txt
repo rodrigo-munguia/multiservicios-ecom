@@ -29,3 +29,4 @@ tzdata==2022.7
 tzlocal==4.2
 urllib3==1.26.14
 psycopg2-binary==2.9.5
+dj-database-url==1.2.0

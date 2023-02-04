@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import json
 import environ
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -430,7 +431,7 @@ else:
     # production environment
     CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app/']
     
-    
+    """
     DATABASES = {     
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -440,7 +441,14 @@ else:
         'HOST': '<PGHOST>',
         'PORT': '<PGPORT>'  
         } 
-    } 
+    }"""
+    
+    DATABASE_URL = env('DATABASE_URL', default='')
+    
+    DATABASES = {
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+    }
+     
     
     STRIPE_SECRET_KEY   = env('STRIPE_SECRET_KEY', default='')
     STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
