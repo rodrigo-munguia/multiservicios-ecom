@@ -42,7 +42,7 @@
               </a>
               <strong>
                 <a 
-                  class="dark-grey-text">{{ object.title }}                  
+                  class="lead font-weight-bold">{{ object.title }}                  
                 </a>
               </strong>
             </div>
@@ -56,9 +56,21 @@
               {% else %}
               <span>${{ object.price }}</span>
               {% endif %}
-            </p>
+              
+            
 
-            <p class="lead font-weight-bold">Description</p>
+            
+              {% if object.shipping_cost == 0 %}
+              <p class="lead">
+                <span>Free Shipping!!</span>
+              </p>
+              {% else %}
+                <p> Shipping cost: {{ object.shipping_cost }}</p>
+              {%endif%}
+            
+
+
+            <p class="font-weight-bold">Description:</p>
 
             <p>{{ object.description }}</p>
 

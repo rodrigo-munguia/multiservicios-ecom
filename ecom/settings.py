@@ -221,6 +221,9 @@ if DEBUG == True:
     
     db = config['db'][0]
     
+    
+    # local database
+    """
     DATABASES = {     
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -231,6 +234,17 @@ if DEBUG == True:
         'PORT': db['PORT']  
         } 
     } 
+    """
+    
+    
+    # remote database (railway app)
+    
+    railway_db = config['railway_db'][0]    
+    DATABASE_URL = railway_db['DATABASE_URL']    
+    DATABASES = {
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
+    }
+    
                     
     STRIPE_SECRET_KEY = stripe["STRIPE_SECRET_KEY"]
     STRIPE_PUBLIC_KEY = stripe["STRIPE_PUBLIC_KEY"]
@@ -430,18 +444,7 @@ else:
     
     # production environment
     CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app/']
-    
-    """
-    DATABASES = {     
-        'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '<PGDATABASE>',
-        'USER': '<PGUSER>',
-        'PASSWORD': '<PGPASSWORD>',
-        'HOST': '<PGHOST>',
-        'PORT': '<PGPORT>'  
-        } 
-    }"""
+       
     
     DATABASE_URL = env('DATABASE_URL', default='')
     

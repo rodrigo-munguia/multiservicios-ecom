@@ -12,6 +12,7 @@
             <th scope="col">#</th>
             <th scope="col">Item title</th>
             <th scope="col">Price</th>
+            <th scope="col">Shipping</th>
             <th scope="col">Quantity</th>
             <th scope="col">Total Item Price</th>
         </tr>
@@ -22,6 +23,7 @@
             <th scope="row">{{ forloop.counter }}</th>
             <td>{{ order_item.item.title }}</td>
             <td>{{ order_item.item.price }}</td>
+            <td>{{ order_item.item.shipping_cost }}</td>
             
             <td>                
                 <a href="{% url 'core:remove-single-item-from-cart' order_item.item.slug %}"><i class="fas fa-minus mr-2"></i></a>
@@ -32,10 +34,10 @@
 
             <td>
             {% if order_item.item.discount_price %}
-                ${{ order_item.get_total_discount_item_price}}
+                ${{ order_item.get_final_price}}
                 <span class="badge badge-primary">Saving ${{ order_item.get_amount_saved }}</span>
             {% else %}
-                ${{ order_item.get_total_item_price }}
+                ${{ order_item.get_final_price }}
             {% endif %}
             <a style='color: red;' href="{% url 'core:remove-from-cart' order_item.item.slug %}">
                 <i class="fas fa-trash float-right"></i>

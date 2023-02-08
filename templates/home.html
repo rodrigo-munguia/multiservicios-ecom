@@ -113,6 +113,12 @@
                   </strong>
                 </h4>
 
+                {% if item.shipping_cost == 0 %}
+                <p class="lead">
+                  <span>Free Shipping!!</span>
+                </p>              
+                {%endif%}
+
                 <h6 class="font-weight-bold red-text">
                   <strong>
                     {% if item.stock < 1 %}                    
