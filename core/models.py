@@ -6,6 +6,9 @@ import os.path
 from PIL import Image
 from io import BytesIO
 from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+from django.dispatch import receiver
+from django.db.models.signals import pre_save,post_delete
 
 #from django_q.models import Schedule
 
@@ -69,8 +72,8 @@ class Item(models.Model):
     description = models.TextField(default = 'test description')
     stock = models.IntegerField(default=1)
     id_item = models.CharField(max_length=20,default='0')
-    image = models.ImageField(upload_to='work_image', verbose_name=('imagen'),null=True)
-    thumbnail = models.ImageField(editable=False, upload_to='work_thumbnail',null=True)
+    image = models.ImageField(upload_to='work_image', verbose_name=('imagen'),null=True,blank=True)
+    thumbnail = models.ImageField(editable=False, upload_to='work_image',null=True)
     image2 = models.ImageField(upload_to='work_image', verbose_name=('imagen2'),null=True,blank=True)
     image3 = models.ImageField(upload_to='work_image', verbose_name=('imagen3'),null=True,blank=True)
     
@@ -94,22 +97,33 @@ class Item(models.Model):
         super().__init__(*args, **kwargs)
         self.original_photo_name = self.title
     
+    
         
     def save(self, *args, **kwargs):
         # This checks if the photo was updated or not before saving a thumbnail
+        
+                   
         if self.original_image_name != self.title: 
             if not self.make_thumbnail():
                 # set to a default thumbnail
                 raise Exception('Could not create thumbnail - is the file type valid?')
-
+        
+        
         super(Item, self).save(*args, **kwargs)
     
     def make_thumbnail(self):
-
+        
+       # print(default_storage.exists(self.thumbnail.name))
+       # if default_storage.exists(self.thumbnail.name) == True:
+       #     return True
+         
         image = Image.open(self.image)
         image.thumbnail(settings.THUMB_SIZE, Image.ANTIALIAS)
-
-        thumb_name, thumb_extension = os.path.splitext(self.image.name)
+        
+        image_name = os.path.basename(self.image.name)
+        
+        thumb_name, thumb_extension = os.path.splitext(image_name)
+        
         thumb_extension = thumb_extension.lower()
 
         thumb_filename = thumb_name + '_thumb' + thumb_extension
@@ -135,7 +149,91 @@ class Item(models.Model):
         temp_thumb.close()
 
         return True
+
+@receiver(post_delete, sender=Item)
+def post_save_image(sender, instance, *args, **kwargs):
+    """ Clean Old Image file """
+    try:
+        instance.image.delete(save=False)
+    except:
+        pass
+    try:
+        instance.image2.delete(save=False)
+    except:
+        pass
+    try:
+        instance.image3.delete(save=False)
+    except:
+        pass
+    try:
+        instance.thumbnail.delete(save=False)
+    except:
+        pass
     
+    
+        
+@receiver(pre_save, sender=Item)
+def pre_save_image(sender, instance, *args, **kwargs):
+        """ instance old image file will delete from os """
+        try:
+            old_img = instance.__class__.objects.get(id=instance.id).image.path            
+            try:
+                new_img = instance.image.path
+            except:
+                new_img = None
+            if new_img != old_img:
+                import os
+                if os.path.exists(old_img):
+                    os.remove(old_img)
+                    pass
+        except:
+            pass
+        
+        try:
+            old_img = instance.__class__.objects.get(id=instance.id).image2.path            
+            try:
+                new_img = instance.image2.path
+            except:
+                new_img = None
+            if new_img != old_img:
+                import os
+                if os.path.exists(old_img):
+                    os.remove(old_img)
+                    pass
+        except:
+            pass
+        
+        try:
+            old_img = instance.__class__.objects.get(id=instance.id).image3.path            
+            try:
+                new_img = instance.image3.path
+            except:
+                new_img = None
+            if new_img != old_img:
+                import os
+                if os.path.exists(old_img):
+                    os.remove(old_img)
+                    pass
+        except:
+            pass
+        
+        try:
+            old_img = instance.__class__.objects.get(id=instance.id).thumbnail.path            
+            try:
+                new_img = instance.thumbnail.path
+            except:
+                new_img = None
+            if new_img != old_img:
+                import os
+                if os.path.exists(old_img):
+                    os.remove(old_img)
+                    pass
+        except:
+            pass
+        
+            
+
+
         
 class OrderItem(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,

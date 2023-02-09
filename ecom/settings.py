@@ -194,7 +194,7 @@ if DEBUG == True:
                 "profile",
                 "email"
             ],
-            "AUTH_PARAMS":{"access_type":"online"}
+            "AUTH_PARAMS":{"a100ccess_type":"online"}
         }
         }
         
@@ -205,7 +205,7 @@ if DEBUG == True:
     # set the time (hours) for cancel/delete pick-up orders that have not been complete
     HOURS_TO_CANCEL_PICKUP_ORDERS = 24    
         
-    THUMB_SIZE = (100,100) # thumbail size in pixels
+    THUMB_SIZE = (200,200) # thumbail size in pixels
 
     SITE_ID = 2
     LOGIN_REDIRECT_URL = '/'
@@ -434,7 +434,7 @@ else:
     # set the time (hours) for cancel/delete pick-up orders that have not been complete
     HOURS_TO_CANCEL_PICKUP_ORDERS = 24    
         
-    THUMB_SIZE = (100,100) # thumbail size in pixels
+    THUMB_SIZE = (200,200) # thumbail size in pixels
 
     SITE_ID = 2
     LOGIN_REDIRECT_URL = '/'
