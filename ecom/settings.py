@@ -141,15 +141,16 @@ if DEBUG == True:
     # https://docs.djangoproject.com/en/4.1/howto/static-files/
     
      # for railway --------------------------------------------
-    ALLOWED_HOSTS = ['*']  # for railway
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-    #STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
-    STATIC_ROOT = BASE_DIR / 'staticfiles'
-    STATIC_URL = 'static/'
-
-   # STATICFILES_DIRS = [
-   #     os.path.join(BASE_DIR, 'static')
-   # ]
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'images'),
+        os.path.join(BASE_DIR, 'static'),        
+        ]
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
+    
+    #MEDIA_URL = '/media/'
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'images')  
 
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
@@ -374,8 +375,8 @@ else:
     
     STATIC_URL = '/static/'
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'),
         os.path.join(BASE_DIR, 'images'),
+        os.path.join(BASE_DIR, 'static'),        
         ]
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
     
