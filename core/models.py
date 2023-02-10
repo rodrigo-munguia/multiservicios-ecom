@@ -72,10 +72,10 @@ class Item(models.Model):
     description = models.TextField(default = 'test description')
     stock = models.IntegerField(default=1)
     id_item = models.CharField(max_length=20,default='0')
-    image = models.ImageField(upload_to='work_image', verbose_name=('imagen'),null=True,blank=True)
+    image = models.ImageField(upload_to='work_image/', verbose_name=('imagen'),null=True,blank=True)
     thumbnail = models.ImageField(editable=False, upload_to='work_image',null=True)
-    image2 = models.ImageField(upload_to='work_image', verbose_name=('imagen2'),null=True,blank=True)
-    image3 = models.ImageField(upload_to='work_image', verbose_name=('imagen3'),null=True,blank=True)
+    image2 = models.ImageField(upload_to='work_image/', verbose_name=('imagen2'),null=True,blank=True)
+    image3 = models.ImageField(upload_to='work_image/', verbose_name=('imagen3'),null=True,blank=True)
     
      # Class string added to store original name of photo
     original_image_name = None 
