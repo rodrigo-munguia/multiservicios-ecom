@@ -262,7 +262,7 @@ if DEBUG == True:
     # -------------------------------------------------------------------------------
 else:
     # production environment
-    DEBUG = True
+    #DEBUG = True
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure--ec-_fae+z^+bier#un8-k3zd^3fa(r1d%+&&kv++)bekb#jja'
 
@@ -379,7 +379,7 @@ else:
     MEDIA_URL = '/images/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'images')    
     
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    #STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
      
 
     
