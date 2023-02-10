@@ -167,7 +167,7 @@ if DEBUG == True:
         # Needed to login by username in Django admin, regardless of `allauth`
         'django.contrib.auth.backends.ModelBackend',
 
-        # `allauth` specific authentication methods, such as login by e-mail
+        # `allauth` specific authentication mapplication = WhiteNoise(application)thods, such as login by e-mail
         'allauth.account.auth_backends.AuthenticationBackend',
         
     ]
@@ -277,7 +277,8 @@ else:
         'django.contrib.sessions',
         'django.contrib.messages',    
         'django.contrib.staticfiles',
-        'django.contrib.sites',            
+        'django.contrib.sites',
+        'whitenoise.runserver_nostatic',               
         'crispy_forms',
         "django_extensions",
         "sslserver",
