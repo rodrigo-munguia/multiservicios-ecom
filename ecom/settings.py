@@ -142,8 +142,7 @@ if DEBUG == True:
     
      # for railway --------------------------------------------
     STATIC_URL = '/static/'
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'images'),
+    STATICFILES_DIRS = [        
         os.path.join(BASE_DIR, 'static'),        
         ]
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
@@ -151,9 +150,7 @@ if DEBUG == True:
     #MEDIA_URL = '/media/'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'images')  
-
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'images/')
+    
 
     CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -374,8 +371,7 @@ else:
     
     
     STATIC_URL = '/static/'
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'images'),
+    STATICFILES_DIRS = [        
         os.path.join(BASE_DIR, 'static'),        
         ]
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
