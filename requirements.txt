@@ -6,6 +6,7 @@ django-crispy-forms==1.14.0
 django-extensions==3.2.1
 django-sslserver==0.22
 django-environ==0.9.0
+django-storages==1.13.2
 whitenoise==6.3.0
 stripe==5.0.0
 oauthlib==3.2.2
@@ -30,3 +31,4 @@ tzlocal==4.2
 urllib3==1.26.14
 psycopg2-binary==2.9.5
 dj-database-url==1.2.0
+dropbox==11.36.0

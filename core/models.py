@@ -10,6 +10,8 @@ from django.core.files.storage import default_storage
 from django.dispatch import receiver
 from django.db.models.signals import pre_save,post_delete
 
+
+
 #from django_q.models import Schedule
 
 
@@ -47,6 +49,10 @@ DELIVERY_CHOICES = (
     ('S','shipping')    
 )
 
+#--------------------------------------------------------
+
+#----------------------------------------------------------
+
 class Category(models.Model):
     title = models.CharField(max_length=100,default='Otros')
     
@@ -73,7 +79,7 @@ class Item(models.Model):
     stock = models.IntegerField(default=1)
     id_item = models.CharField(max_length=20,default='0')
     image = models.ImageField(upload_to='work_image/', verbose_name=('imagen'),null=True,blank=True)
-    thumbnail = models.ImageField(editable=False, upload_to='work_image',null=True)
+    thumbnail = models.ImageField(editable=True, upload_to='work_image',null=True,blank=True)
     image2 = models.ImageField(upload_to='work_image/', verbose_name=('imagen2'),null=True,blank=True)
     image3 = models.ImageField(upload_to='work_image/', verbose_name=('imagen3'),null=True,blank=True)
     
@@ -103,7 +109,8 @@ class Item(models.Model):
         # This checks if the photo was updated or not before saving a thumbnail
         
                    
-        if self.original_image_name != self.title: 
+        if self.original_image_name != self.title:
+            pass 
             if not self.make_thumbnail():
                 # set to a default thumbnail
                 #raise Exception('Could not create thumbnail - is the file type valid?')
@@ -178,7 +185,8 @@ def post_save_image(sender, instance, *args, **kwargs):
 def pre_save_image(sender, instance, *args, **kwargs):
         """ instance old image file will delete from os """
         try:
-            old_img = instance.__class__.objects.get(id=instance.id).image.path            
+            old_img = instance.__class__.objects.get(id=instance.id).image.path
+            print(old_img)           
             try:
                 new_img = instance.image.path
             except:
