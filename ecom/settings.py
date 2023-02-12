@@ -481,9 +481,9 @@ else:
     
     # for dropbox    
     DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-    DROPBOX_APP_KEY = env["DROPBOX_APP_KEY"]
-    DROPBOX_APP_SECRET = environ["DROPBOX_APP_SECRET"]
-    DROPBOX_OAUTH2_REFRESH_TOKEN = env["REFRESH_TOKEN"]
+    DROPBOX_APP_KEY = env('DROPBOX_APP_KEY',default='')
+    DROPBOX_APP_SECRET = env('DROPBOX_APP_SECRET',default='')
+    DROPBOX_OAUTH2_REFRESH_TOKEN = env('REFRESH_TOKEN',default='')
     DROPBOX_ROOT_PATH = '/'
 
     
