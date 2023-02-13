@@ -9,6 +9,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.dispatch import receiver
 from django.db.models.signals import pre_save,post_delete
+import dropbox
 
 
 
@@ -79,7 +80,7 @@ class Item(models.Model):
     stock = models.IntegerField(default=1)
     id_item = models.CharField(max_length=20,default='0')
     image = models.ImageField(upload_to='work_image/', verbose_name=('imagen'),null=True,blank=True)
-    thumbnail = models.ImageField(editable=True, upload_to='work_image',null=True,blank=True)
+    thumbnail = models.ImageField(editable=False, upload_to='work_image',null=True,blank=True)
     image2 = models.ImageField(upload_to='work_image/', verbose_name=('imagen2'),null=True,blank=True)
     image3 = models.ImageField(upload_to='work_image/', verbose_name=('imagen3'),null=True,blank=True)
     
@@ -159,11 +160,13 @@ class Item(models.Model):
         except:
             pass
 
+"""
 @receiver(post_delete, sender=Item)
 def post_save_image(sender, instance, *args, **kwargs):
-    """ Clean Old Image file """
+    # Clean Old Image file 
     try:
         instance.image.delete(save=False)
+        pass
     except:
         pass
     try:
@@ -179,14 +182,34 @@ def post_save_image(sender, instance, *args, **kwargs):
     except:
         pass
     
-    
-        
+pass
+"""   
+"""       
 @receiver(pre_save, sender=Item)
 def pre_save_image(sender, instance, *args, **kwargs):
-        """ instance old image file will delete from os """
-        try:
+        # instance old image file will delete from os 
+        if settings.DROPBOX_MEDIA_STORAGE == True:            
+            try:
+                dbx = dropbox.Dropbox(
+                    app_key = settings.DROPBOX_APP_KEY,
+                    app_secret = settings.DROPBOX_APP_SECRET,
+                    oauth2_refresh_token = settings.DROPBOX_OAUTH2_REFRESH_TOKEN
+                )                
+                image_path = "/" + instance.image.name
+                try:   # check if image exist in dropbox 
+                    dbx_file = dbx.files_get_metadata(image_path)
+                    # if exist then delete it
+                    #dbx.files_delete(image_path)
+                except:
+                    pass                 
+                    
+            except:
+                pass        
+        
+        try:           
+            
             old_img = instance.__class__.objects.get(id=instance.id).image.path
-            print(old_img)           
+                                 
             try:
                 new_img = instance.image.path
             except:
@@ -195,7 +218,7 @@ def pre_save_image(sender, instance, *args, **kwargs):
                 import os
                 if os.path.exists(old_img):
                     os.remove(old_img)
-                    pass
+                    pass                    
         except:
             pass
         
@@ -240,7 +263,7 @@ def pre_save_image(sender, instance, *args, **kwargs):
                     pass
         except:
             pass
-        
+"""        
             
 
 

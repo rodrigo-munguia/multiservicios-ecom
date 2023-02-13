@@ -66,6 +66,7 @@ if DEBUG == True:
         'django_apscheduler',      
         'core',
         'storages',
+        'django_cleanup.apps.CleanupConfig',
     ]
 
     MIDDLEWARE = [
@@ -261,12 +262,14 @@ if DEBUG == True:
     # -------------------------------------------------------------------------------
 
     # for dropbox
-    dropbox = config['dropbox'][0]  
-    DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-    DROPBOX_APP_KEY = dropbox["DROPBOX_APP_KEY"]
-    DROPBOX_APP_SECRET = dropbox["DROPBOX_APP_SECRET"]
-    DROPBOX_OAUTH2_REFRESH_TOKEN = dropbox["refresh_token"]
-    DROPBOX_ROOT_PATH = '/'
+    DROPBOX_MEDIA_STORAGE = True
+    if DROPBOX_MEDIA_STORAGE == True: 
+        dropbox = config['dropbox'][0]  
+        DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+        DROPBOX_APP_KEY = dropbox["DROPBOX_APP_KEY"]
+        DROPBOX_APP_SECRET = dropbox["DROPBOX_APP_SECRET"]
+        DROPBOX_OAUTH2_REFRESH_TOKEN = dropbox["refresh_token"]
+        DROPBOX_ROOT_PATH = '/'
 
 else:
     # production environment
@@ -300,7 +303,8 @@ else:
         #--------------------------------------------------------
         'django_apscheduler',      
         'core', 
-        'storages'      
+        'storages',
+        'django_cleanup.apps.CleanupConfig',      
     ]
 
     MIDDLEWARE = [
@@ -479,12 +483,14 @@ else:
     EMAIL_PORT = env('EMAIL_PORT', default='')
     EMAIL_USE_TLS = env('EMAIL_USE_TLS', default='') 
     
-    # for dropbox    
-    DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-    DROPBOX_APP_KEY = env('DROPBOX_APP_KEY',default='')
-    DROPBOX_APP_SECRET = env('DROPBOX_APP_SECRET',default='')
-    DROPBOX_OAUTH2_REFRESH_TOKEN = env('REFRESH_TOKEN',default='')
-    DROPBOX_ROOT_PATH = '/'
+    # for dropbox
+    DROPBOX_MEDIA_STORAGE = True
+    if DROPBOX_MEDIA_STORAGE == True:    
+        DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+        DROPBOX_APP_KEY = env('DROPBOX_APP_KEY',default='')
+        DROPBOX_APP_SECRET = env('DROPBOX_APP_SECRET',default='')
+        DROPBOX_OAUTH2_REFRESH_TOKEN = env('REFRESH_TOKEN',default='')
+        DROPBOX_ROOT_PATH = '/'
 
     
 
